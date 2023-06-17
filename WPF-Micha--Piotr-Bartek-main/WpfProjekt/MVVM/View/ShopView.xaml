@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="WpfProjekt.MVVM.View.ShopView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfProjekt.MVVM.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Game Store" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,20" Foreground="White" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
+            <TextBlock Text="Search: " VerticalAlignment="Center" Margin="0,0,5,0" Foreground="White" />
+            <TextBox Name="SearchTextBox" Width="200" VerticalAlignment="Center" />
+            <Button Name="SearchButton" Content="Search" Click="SearchButton_Click" Margin="5,0,0,0" />
+        </StackPanel>
+
+        <Button Grid.Row="1" Name="BuyAndDownloadButton" Content="Buy and Download" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Visibility="Hidden" Click="BuyAndDownloadButton_Click"/>
+
+        <ListView Grid.Row="2" Name="GamesInStoreListView" Background="#FF232323" Foreground="#FF8C8C8C">
+            <ListView.Resources>
+                <Style TargetType="ListViewItem">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF444444"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#FF444444"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="0">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding id}" Visibility="Hidden"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Image" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding image}" Width="100" Height="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Title" Width="100">
+                        <GridViewColumn.HeaderContainerStyle>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="Command" Value="{Binding SortByTitleCommand}"/>
+                            </Style>
+                        </GridViewColumn.HeaderContainerStyle>
+                        <GridViewColumn.DisplayMemberBinding>
+                            <Binding Path="title"/>
+                        </GridViewColumn.DisplayMemberBinding>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Category" Width="100">
+                        <GridViewColumn.HeaderContainerStyle>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="Command" Value="{Binding SortByCategoryCommand}"/>
+                            </Style>
+                        </GridViewColumn.HeaderContainerStyle>
+                        <GridViewColumn.DisplayMemberBinding>
+                            <Binding Path="category"/>
+                        </GridViewColumn.DisplayMemberBinding>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Rating" Width="200">
+                        <GridViewColumn.HeaderContainerStyle>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="Command" Value="{Binding SortByRatingCommand}"/>
+                            </Style>
+                        </GridViewColumn.HeaderContainerStyle>
+                        <GridViewColumn.DisplayMemberBinding>
+                            <Binding Path="rating"/>
+                        </GridViewColumn.DisplayMemberBinding>
+                    </GridViewColumn>
+
+
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+    </Grid>
+</UserControl>
